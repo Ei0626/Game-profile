@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Game Profile</title>
+
+    <style>
+        /* =====================================================
+           基本設定
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-main: #100c18;
+
+            --bg-card: rgba(32, 25, 47, 0.82);
+            --bg-card-hover: rgba(43, 34, 62, 0.94);
+
+            --purple: #9b7bea;
+            --purple-light: #c9b7ff;
+            --purple-dark: #7152c5;
+
+            --text-main: #f5f2ff;
+            --text-secondary: #aaa1ba;
+
+            --border: rgba(180, 150, 255, 0.16);
+
+            --green: #8de0ae;
+
+            --shadow:
+                0 18px 45px rgba(0, 0, 0, 0.32);
+        }
+
+
+        /* =====================================================
+           Body
+           ===================================================== */
+
+        body {
+            min-height: 100vh;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Noto Sans TC",
+                sans-serif;
+
+            color: var(--text-main);
+
+            background:
+                radial-gradient(
+                    circle at 10% 5%,
+                    rgba(137, 91, 220, 0.20),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(100, 70, 180, 0.16),
+                    transparent 32%
+                ),
+                var(--bg-main);
+
+            padding: 45px 20px;
+        }
+
+
+        /* =====================================================
+           Container
+           ===================================================== */
+
+        .container {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           Header
+           ===================================================== */
+
+        .header {
+            margin-bottom: 28px;
+        }
+
+        .header-label {
+            color: var(--purple-light);
+
+            font-size: 11px;
+            font-weight: 600;
+
+            letter-spacing: 2.5px;
+
+            margin-bottom: 9px;
+
+            text-transform: uppercase;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 650;
+
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            margin-top: 8px;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           Game List
+           ===================================================== */
+
+        #game-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+        }
+
+
+        /* =====================================================
+           Game Card
+           ===================================================== */
+
+        .game-card {
+            padding: 18px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            background: var(--bg-card);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-2px);
+
+            background: var(--bg-card-hover);
+
+            border-color:
+                rgba(180, 150, 255, 0.28);
+        }
+
+
+        /* =====================================================
+           Game Header
+           ===================================================== */
+
+        .game-header {
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        /* =====================================================
+           Game Icon
+           ===================================================== */
+
+        .game-icon {
+            width: 58px;
+            height: 58px;
+
+            flex-shrink: 0;
+
+            border-radius: 15px;
+
+            object-fit: cover;
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.08);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3d2d5d,
+                    #21182f
+                );
+
+            box-shadow:
+                0 7px 18px
+                rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* =====================================================
+           Emoji Icon
+           ===================================================== */
+
+        .emoji-icon {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+        }
+
+
+        /* =====================================================
+           Game Name
+           ===================================================== */
+
+        .game-info {
+            margin-left: 16px;
+
+            min-width: 0;
+        }
+
+        .game-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .game-type {
+            margin-top: 4px;
+
+            color: var(--text-secondary);
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           UID Row
+           ===================================================== */
+
+        .uid-row {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-top: 16px;
+
+            padding: 12px 13px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(0, 0, 0, 0.18);
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.04);
+        }
+
+        .uid-label {
+            color: var(--text-secondary);
+
+            font-size: 11px;
+
+            min-width: 58px;
+        }
+
+        .uid {
+            flex: 1;
+
+            color: var(--purple-light);
+
+            font-family:
+                "SFMono-Regular",
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 13px;
+
+            letter-spacing: 0.3px;
+
+            word-break: break-all;
+        }
+
+
+        /* =====================================================
+           Copy Button
+           ===================================================== */
+
+        .copy-button {
+            flex-shrink: 0;
+
+            border: none;
+            outline: none;
+
+            padding: 8px 12px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(155, 123, 234, 0.12);
+
+            color: var(--purple-light);
+
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.15s ease,
+                color 0.2s ease;
+        }
+
+        .copy-button:hover {
+            background:
+                rgba(155, 123, 234, 0.23);
+        }
+
+        .copy-button:active {
+            transform: scale(0.93);
+        }
+
+        .copy-button.copied {
+            background:
+                rgba(104, 190, 143, 0.15);
+
+            color: var(--green);
+        }
+
+
+        /* =====================================================
+           Sky Friend Codes
+           ===================================================== */
+
+        .friend-codes {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            margin-top: 16px;
+        }
+
+        .friend-code {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 11px 13px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(0, 0, 0, 0.18);
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.04);
+        }
+
+        .friend-number {
+            width: 58px;
+
+            flex-shrink: 0;
+
+            color: var(--text-secondary);
+
+            font-size: 11px;
+        }
+
+        .friend-value {
+            flex: 1;
+
+            color: var(--purple-light);
+
+            font-family:
+                "SFMono-Regular",
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 13px;
+
+            word-break: break-all;
+        }
+
+        .friend-value.empty {
+            color:
+                rgba(170, 161, 189, 0.45);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           Footer
+           ===================================================== */
+
+        .footer {
+            margin-top: 25px;
+
+            text-align: center;
+
+            color:
+                rgba(170, 161, 189, 0.45);
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           Mobile
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 28px 14px;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .game-card {
+                padding: 14px;
+            }
+
+            .game-icon {
+                width: 52px;
+                height: 52px;
+
+                border-radius: 14px;
+            }
+
+            .game-info {
+                margin-left: 13px;
+            }
+
+            .uid-row {
+                gap: 8px;
+
+                padding: 10px;
+            }
+
+            .uid-label {
+                min-width: 45px;
+            }
+
+            .copy-button {
+                padding: 8px 10px;
+            }
+
+            .friend-code {
+                gap: 8px;
+
+                padding: 10px;
+            }
+
+            .friend-number {
+                width: 45px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         Header
+         ===================================================== -->
+
+    <header class="header">
+
+        <div class="header-label">
+            GAME PROFILE
+        </div>
+
+        <h1>遊戲ID</h1>
+
+        <p>
+            My game IDs 
+        </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         遊戲列表
+         ===================================================== -->
+
+    <main id="game-list"></main>
+
+
+    <!-- =====================================================
+         Footer
+         ===================================================== -->
+
+    <div class="footer">
+        Personal Game Profile
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   ★★★★★ GAME DATA ★★★★★
+
+   之後你主要只需要修改這裡。
+
+   ---------------------------------------------------------
+
+   icon：
+
+   如果使用 Emoji：
+
+       icon: "🎮"
+
+   如果想使用圖片：
+
+       icon: "images/genshin.png"
+
+   ---------------------------------------------------------
+   */
+
+
+const games = [
+
+    /* =====================================================
+       原神
+       ===================================================== */
+
+    {
+        name: "原神",
+        type: "UID",
+        id: "828172239",
+
+        // 目前使用 Emoji
+        icon: "https://upload.wikimedia.org/wikipedia/zh/f/fc/%E5%8E%9F%E7%A5%9E_%E5%9C%8B%E9%9A%9B%E7%89%88.jpeg"
+    },
+
+
+    /* =====================================================
+       崩壞：星穹鐵道
+       ===================================================== */
+
+    {
+        name: "崩壞：星穹鐵道",
+        type: "UID",
+        id: "800339172",
+
+        // 目前使用 Emoji
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNshqRLiWcJOVpRIq6GcwBbWT6jxIgFt2X3ogaJ_5R7Q&s=10"
+    },
+
+
+    /* =====================================================
+       光遇
+       =====================================================
+
+       光遇的好友代碼另外放在 skyCodes 裡面。
+
+       ===================================================== */
+
+    {
+        name: "Sky 光遇",
+        type: "好友代碼",
+
+        // Sky 使用五個好友代碼
+        skyCodes: true,
+
+        // 目前使用 Emoji
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLUliTldX75mcl_8AiWEA--tD_60W14rgxEQ_r7n_LbA&s=10"
+    }
+
+];
+
+
+
+/* =========================================================
+   ★ 光遇好友代碼 ★
+
+   你之後只需要修改這裡。
+
+   例如：
+
+       "ABC123456"
+
+   如果還沒填，就維持：
+
+       ""
+
+   一共預留五個位置。
+   =========================================================
+*/
+
+
+const skyCodes = [
+
+    "",
+
+    "",
+
+    "",
+
+    "",
+
+    ""
+
+];
+
+
+
+/* =========================================================
+   產生遊戲 Icon
+   =========================================================
+*/
+
+
+function createIcon(game) {
+
+    /*
+     * 如果是圖片網址
+     */
+
+    if (
+        game.icon.startsWith("http://") ||
+        game.icon.startsWith("https://") ||
+        game.icon.startsWith("images/")
+    ) {
+
+        return `
+            <img
+                class="game-icon"
+                src="${game.icon}"
+                alt="${game.name}"
+            >
+        `;
+
+    }
+
+
+    /*
+     * 如果是 Emoji
+     */
+
+    return `
+        <div
+            class="game-icon emoji-icon"
+        >
+            ${game.icon}
+        </div>
+    `;
+
+}
+
+
+
+/* =========================================================
+   複製按鈕
+   =========================================================
+*/
+
+
+function createCopyButton(id) {
+
+    return `
+        <button
+            class="copy-button"
+            data-copy="${id}"
+        >
+            複製
+        </button>
+    `;
+
+}
+
+
+
+/* =========================================================
+   產生一般 UID 遊戲卡片
+   =========================================================
+*/
+
+
+function createUIDCard(game) {
+
+    return `
+
+        <section class="game-card">
+
+
+            <div class="game-header">
+
+                ${createIcon(game)}
+
+
+                <div class="game-info">
+
+                    <div class="game-name">
+                        ${game.name}
+                    </div>
+
+                    <div class="game-type">
+                        ${game.type}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="uid-row">
+
+                <div class="uid-label">
+                    ${game.type}
+                </div>
+
+                <div class="uid">
+                    ${game.id}
+                </div>
+
+                ${createCopyButton(game.id)}
+
+            </div>
+
+
+        </section>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   產生光遇卡片
+   =========================================================
+*/
+
+
+function createSkyCard(game) {
+
+    let codesHTML = "";
+
+
+    skyCodes.forEach((code, index) => {
+
+        const empty =
+            code.trim() === "";
+
+
+        const displayText =
+            empty
+                ? "尚未設定"
+                : code;
+
+
+        codesHTML += `
+
+            <div class="friend-code">
+
+                <div class="friend-number">
+                    好友 ${String(index + 1).padStart(2, "0")}
+                </div>
+
+
+                <div
+                    class="friend-value
+                    ${empty ? "empty" : ""}"
+                >
+                    ${displayText}
+                </div>
+
+
+                ${
+                    empty
+
+                    ? ""
+
+                    : createCopyButton(code)
+                }
+
+            </div>
+
+        `;
+
+    });
+
+
+    return `
+
+        <section class="game-card">
+
+
+            <div class="game-header">
+
+                ${createIcon(game)}
+
+
+                <div class="game-info">
+
+                    <div class="game-name">
+                        ${game.name}
+                    </div>
+
+                    <div class="game-type">
+                        ${game.type}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="friend-codes">
+
+                ${codesHTML}
+
+            </div>
+
+
+        </section>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   生成全部遊戲
+   =========================================================
+*/
+
+
+const gameList =
+    document.getElementById("game-list");
+
+
+games.forEach(game => {
+
+
+    /*
+     * 光遇
+     */
+
+    if (game.skyCodes === true) {
+
+        gameList.innerHTML +=
+            createSkyCard(game);
+
+    }
+
+
+    /*
+     * 一般 UID
+     */
+
+    else {
+
+        gameList.innerHTML +=
+            createUIDCard(game);
+
+    }
+
+});
+
+
+
+/* =========================================================
+   Copy Function
+   =========================================================
+*/
+
+
+document
+    .querySelectorAll(".copy-button")
+    .forEach(button => {
+
+
+        button.addEventListener(
+            "click",
+            async () => {
+
+
+                const text =
+                    button.dataset.copy;
+
+
+                const originalText =
+                    button.textContent;
+
+
+                try {
+
+
+                    /*
+                     * 現代瀏覽器 Clipboard API
+                     */
+
+                    await navigator
+                        .clipboard
+                        .writeText(text);
+
+
+                }
+
+
+                catch (error) {
+
+
+                    /*
+                     * 備援方案
+                     */
+
+                    const textarea =
+                        document.createElement(
+                            "textarea"
+                        );
+
+
+                    textarea.value =
+                        text;
+
+
+                    textarea.style.position =
+                        "fixed";
+
+                    textarea.style.opacity =
+                        "0";
+
+
+                    document.body.appendChild(
+                        textarea
+                    );
+
+
+                    textarea.focus();
+
+                    textarea.select();
+
+
+                    document.execCommand(
+                        "copy"
+                    );
+
+
+                    textarea.remove();
+
+                }
+
+
+                /*
+                 * 顯示複製成功
+                 */
+
+                button.textContent =
+                    "✓ 已複製";
+
+
+                button.classList.add(
+                    "copied"
+                );
+
+
+                /*
+                 * 1.5 秒後恢復
+                 */
+
+                setTimeout(() => {
+
+
+                    button.textContent =
+                        originalText;
+
+
+                    button.classList.remove(
+                        "copied"
+                    );
+
+
+                }, 1500);
+
+
+            }
+
+        );
+
+    });
+
+
+</script>
+
+
+</body>
+</html>
