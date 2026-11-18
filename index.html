@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>凜櫻雪｜自介</title>
+<meta name="description" content="凜櫻雪的自介：基本資料、坑單、原神／星穹鐵道／光遇帳號與好友碼。">
+<meta name="theme-color" content="#100c18">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+
+<!-- 分享到 Discord / LINE 時的預覽 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="凜櫻雪｜自介">
+<meta property="og:description" content="基本資料、坑單、原神／星穹鐵道／光遇帳號與好友碼。">
+<meta property="og:image" content="https://ei0626.github.io/Game-profile/images/sky.jpeg">
 
 <style>
 /* =====================================================
@@ -39,13 +48,22 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     color: var(--text-main);
     line-height: 1.65;
-    background:
-        radial-gradient(circle at 10% 5%, rgba(137, 91, 220, 0.20), transparent 30%),
-        radial-gradient(circle at 90% 90%, rgba(100, 70, 180, 0.16), transparent 32%),
-        var(--bg-main);
-    background-attachment: fixed;
+    background: var(--bg-main);
     padding: 45px 20px 30px;
 }
+
+/* 固定背景改用偽元素，比 background-attachment: fixed 順，手機也有效 */
+body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 10% 5%, rgba(137, 91, 220, 0.20), transparent 30%),
+        radial-gradient(circle at 90% 90%, rgba(100, 70, 180, 0.16), transparent 32%);
+}
+
+/* 鍵盤操作時的焦點框 */
+:focus-visible { outline: 2px solid var(--purple-light); outline-offset: 2px; }
 
 .container { width: 100%; max-width: 760px; margin: 0 auto; }
 
@@ -140,8 +158,6 @@ body {
     border: 1px solid var(--border);
     border-radius: 18px;
     background: var(--bg-card);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
     box-shadow: var(--shadow);
 }
 
@@ -253,7 +269,7 @@ details > .body { padding: 0 14px 14px; }
 }
 .cta:hover { filter: brightness(1.1); }
 
-.photo { width: 100%; border-radius: 14px; display: block; border: 1px solid var(--border); }
+.photo { width: 100%; height: auto; border-radius: 14px; display: block; border: 1px solid var(--border); }
 
 s { color: var(--text-faint); }
 
@@ -267,8 +283,6 @@ s { color: var(--text-faint); }
     border: 1px solid var(--border);
     border-radius: 18px;
     background: var(--bg-card);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
     box-shadow: var(--shadow);
     transition: transform .2s, background .2s, border-color .2s;
 }
@@ -315,7 +329,7 @@ s { color: var(--text-faint); }
 
 .copy-button {
     flex-shrink: 0;
-    border: none; outline: none;
+    border: none;
     padding: 8px 12px;
     border-radius: 9px;
     background: rgba(155, 123, 234, 0.12);
@@ -327,6 +341,7 @@ s { color: var(--text-faint); }
 .copy-button:hover { background: rgba(155, 123, 234, 0.23); }
 .copy-button:active { transform: scale(0.93); }
 .copy-button.copied { background: rgba(104, 190, 143, 0.15); color: var(--green); }
+.copy-button.failed { background: rgba(240, 120, 140, 0.15); color: #ffb3c1; }
 
 /* =====================================================
    Footer
@@ -350,6 +365,12 @@ s { color: var(--text-faint); }
     .uid-row, .friend-code { gap: 8px; padding: 10px; }
     .uid-label, .friend-number { width: 45px; }
     .copy-button { padding: 8px 10px; }
+}
+
+/* 系統設定「減少動態效果」時關掉動畫 */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 </style>
 </head>
@@ -378,13 +399,13 @@ s { color: var(--text-faint); }
     <!-- =====================================================
          分頁按鈕
          ===================================================== -->
-    <nav class="tabs" id="tabs">
-        <button class="tab" data-page="home">首頁</button>
-        <button class="tab" data-page="me">關於我</button>
-        <button class="tab" data-page="genshin">原神</button>
-        <button class="tab" data-page="hsr">星穹鐵道</button>
-        <button class="tab" data-page="sky">光遇</button>
-        <button class="tab" data-page="friend">加好友</button>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="分頁">
+        <button class="tab" role="tab" data-page="home">首頁</button>
+        <button class="tab" role="tab" data-page="me">關於我</button>
+        <button class="tab" role="tab" data-page="genshin">原神</button>
+        <button class="tab" role="tab" data-page="hsr">星穹鐵道</button>
+        <button class="tab" role="tab" data-page="sky">光遇</button>
+        <button class="tab" role="tab" data-page="friend">加好友</button>
     </nav>
 
 
@@ -579,11 +600,7 @@ s { color: var(--text-faint); }
                 <dt>入坑時間</dt><dd>2021 年 4 月</dd>
                 <dt>探索度</dt><dd>全圖 100%</dd>
             </dl>
-            <div class="uid-row">
-                <div class="uid-label">UID</div>
-                <div class="uid">828172239</div>
-                <button class="copy-button" data-copy="828172239">複製</button>
-            </div>
+            <div class="uid-row" data-uid-of="genshin"></div>
         </div>
 
         <div class="card">
@@ -629,11 +646,7 @@ s { color: var(--text-faint); }
                 <dt>入坑時間</dt><dd>開服玩家</dd>
                 <dt>支援角色</dt><dd>黃泉／長夜月／緋英</dd>
             </dl>
-            <div class="uid-row">
-                <div class="uid-label">UID</div>
-                <div class="uid">800339172</div>
-                <button class="copy-button" data-copy="800339172">複製</button>
-            </div>
+            <div class="uid-row" data-uid-of="hsr"></div>
         </div>
 
         <div class="card">
@@ -721,7 +734,7 @@ s { color: var(--text-faint); }
             <p class="muted">歡迎蹭圖？但我通常只跑以上地點和每日任務，大蠟圖看心情。</p>
         </div>
 
-        <img class="photo" src="images/sky.jpeg" alt="光遇截圖：兩隻穿著藍色披風的光之子躺在草地上" loading="lazy">
+        <img class="photo" src="images/sky.jpeg" width="1600" height="1200" alt="光遇截圖：兩隻穿著藍色披風的光之子躺在草地上" loading="lazy" decoding="async">
 
         <button class="cta" data-goto="friend">加好友 →</button>
     </section>
@@ -748,27 +761,36 @@ s { color: var(--text-faint); }
    ★★★★★ GAME DATA ★★★★★
    之後你主要只需要修改這裡。
 
+   UID 只要改這裡，「原神」「星穹鐵道」分頁和「加好友」會一起更新。
+
    icon：
      Emoji：   icon: "🎮"
      圖片：    icon: "images/genshin.png" 或 https:// 網址
+   emoji：圖片載入失敗時改顯示的 emoji
    ========================================================= */
 const games = [
     {
+        key: "genshin",
         name: "原神",
         type: "UID",
         id: "828172239",
+        emoji: "⚡",
         icon: "https://upload.wikimedia.org/wikipedia/zh/f/fc/%E5%8E%9F%E7%A5%9E_%E5%9C%8B%E9%9A%9B%E7%89%88.jpeg"
     },
     {
+        key: "hsr",
         name: "崩壞：星穹鐵道",
         type: "UID",
         id: "800339172",
+        emoji: "🌌",
         icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNshqRLiWcJOVpRIq6GcwBbWT6jxIgFt2X3ogaJ_5R7Q&s=10"
     },
     {
+        key: "sky",
         name: "Sky 光遇",
         type: "好友代碼",
         skyCodes: true,   // 光遇的好友代碼放在下面的 skyCodes
+        emoji: "🕯️",
         icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLUliTldX75mcl_8AiWEA--tD_60W14rgxEQ_r7n_LbA&s=10"
     }
 ];
@@ -805,9 +827,26 @@ const hsrCharacters = [
    ========================================================= */
 function createIcon(game) {
     if (/^(https?:\/\/|images\/)/.test(game.icon)) {
-        return `<img class="game-icon" src="${game.icon}" alt="${game.name}">`;
+        return `<img class="game-icon" src="${game.icon}" alt="${game.name}" loading="lazy" referrerpolicy="no-referrer" data-emoji="${game.emoji || "🎮"}">`;
     }
     return `<div class="game-icon emoji-icon">${game.icon}</div>`;
+}
+
+// 圖片網址失效時換成 emoji，不會出現破圖
+document.addEventListener("error", e => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement) || !img.classList.contains("game-icon")) return;
+    const div = document.createElement("div");
+    div.className = "game-icon emoji-icon";
+    div.textContent = img.dataset.emoji;
+    img.replaceWith(div);
+}, true);
+
+function createUIDRow(game) {
+    return `
+        <div class="uid-label">${game.type}</div>
+        <div class="uid">${game.id}</div>
+        ${createCopyButton(game.id)}`;
 }
 
 function createCopyButton(text) {
@@ -829,11 +868,7 @@ function createUIDCard(game) {
     return `
         <section class="game-card">
             ${createGameHeader(game)}
-            <div class="uid-row">
-                <div class="uid-label">${game.type}</div>
-                <div class="uid">${game.id}</div>
-                ${createCopyButton(game.id)}
-            </div>
+            <div class="uid-row">${createUIDRow(game)}</div>
         </section>`;
 }
 
@@ -858,6 +893,12 @@ function createSkyCard(game) {
 document.getElementById("game-list").innerHTML =
     games.map(g => g.skyCodes ? createSkyCard(g) : createUIDCard(g)).join("");
 
+// 各遊戲分頁裡的 UID 列，也從 games 讀取
+document.querySelectorAll("[data-uid-of]").forEach(row => {
+    const game = games.find(g => g.key === row.dataset.uidOf);
+    if (game) row.innerHTML = createUIDRow(game);
+});
+
 document.getElementById("hsr-chars").innerHTML =
     hsrCharacters.map(([name, rank]) =>
         `<span class="chip">${name}${rank ? `<small>${rank}</small>` : ""}</span>`
@@ -869,6 +910,8 @@ document.getElementById("hsr-chars").innerHTML =
    ========================================================= */
 const pages = ["home", "me", "genshin", "hsr", "sky", "friend"];
 
+const tabsEl = document.getElementById("tabs");
+
 function showPage(name, scroll) {
     if (!pages.includes(name)) name = "home";
     document.querySelectorAll(".page").forEach(p =>
@@ -876,9 +919,17 @@ function showPage(name, scroll) {
     document.querySelectorAll(".tab").forEach(t => {
         const on = t.dataset.page === name;
         t.classList.toggle("active", on);
-        if (on) t.scrollIntoView({ block: "nearest", inline: "center" });
+        t.setAttribute("aria-selected", on);
+        // 只橫向捲動分頁列，不會讓整頁跳動
+        if (on) tabsEl.scrollTo({ left: t.offsetLeft - (tabsEl.clientWidth - t.offsetWidth) / 2, behavior: "smooth" });
     });
-    if (scroll) document.getElementById("tabs").scrollIntoView({ behavior: "smooth" });
+    // 已經往下捲的話，回到分頁開頭，避免停在新分頁的中間或空白處
+    // （分頁列是 sticky，對它 scrollIntoView 沒效果，所以直接算新分頁的位置）
+    if (scroll) {
+        const page = document.getElementById("page-" + name);
+        const y = page.getBoundingClientRect().top + window.scrollY - tabsEl.offsetHeight - 18;
+        if (window.scrollY > y) window.scrollTo({ top: y, behavior: "smooth" });
+    }
 }
 
 document.addEventListener("click", e => {
@@ -886,7 +937,7 @@ document.addEventListener("click", e => {
     if (!btn) return;
     const name = btn.dataset.page || btn.dataset.goto;
     history.replaceState(null, "", "#" + name);
-    showPage(name, !!btn.dataset.goto);
+    showPage(name, true);
 });
 
 window.addEventListener("hashchange", () => showPage(location.hash.slice(1)));
@@ -901,26 +952,29 @@ document.addEventListener("click", async e => {
     if (!button) return;
 
     const text = button.dataset.copy;
+    let ok = true;
     try {
         await navigator.clipboard.writeText(text);
     } catch {
         const ta = document.createElement("textarea");
         ta.value = text;
+        ta.setAttribute("readonly", "");
         ta.style.position = "fixed";
         ta.style.opacity = "0";
         document.body.appendChild(ta);
         ta.select();
-        document.execCommand("copy");
+        try { ok = document.execCommand("copy"); } catch { ok = false; }
         ta.remove();
     }
 
-    button.textContent = "✓ 已複製";
-    button.classList.add("copied");
+    button.textContent = ok ? "✓ 已複製" : "請長按複製";
+    button.classList.remove("copied", "failed");
+    button.classList.add(ok ? "copied" : "failed");
     clearTimeout(button._t);
     button._t = setTimeout(() => {
         button.textContent = "複製";
-        button.classList.remove("copied");
-    }, 1500);
+        button.classList.remove("copied", "failed");
+    }, ok ? 1500 : 2500);
 });
 </script>
 </body>
